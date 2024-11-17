@@ -1,17 +1,56 @@
+<!-- index.html -->
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <title>Secrets</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Login</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./style.css">
 </head>
-
 <body>
-  <h1>Secrets</h1>
-  <form action="/check" method="POST">
-    <label for="password">Password:</label>
-    <input type="text" id="password" name="password" required>
-    <input type="submit" value="Submit">
-  </form>
-</body>
+    <div class="container">
+        <div class="login-container">
+            <div class="login-header">
+                <div class="lock-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 1C8.676 1 6 3.676 6 7v2H4v14h16V9h-2V7c0-3.324-2.676-6-6-6zm0 2c2.276 0 4 1.724 4 4v2H8V7c0-2.276 1.724-4 4-4z" fill="white"/>
+                    </svg>
+                </div>
+                <h1>Secure Access</h1>
+                <p class="text-muted">Enter the secret password to continue</p>
+            </div>
+            <form action="/check" method="POST" class="login-form" id="loginForm">
+                <div class="form-group password-wrapper mb-4">
+                    <input 
+                        type="password" 
+                        name="password" 
+                        class="form-control" 
+                        placeholder="Enter password" 
+                        required
+                        id="passwordInput"
+                    >
+                    <button 
+                        type="button" 
+                        class="password-toggle" 
+                        id="passwordToggle"
+                    >
+                        👁️
+                    </button>
+                </div>
+                <button type="submit" class="submit-btn">
+                    Verify Access
+                </button>
+            </form>
+        </div>
+    </div>
 
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="./script.js"></script>
+    
+</body>
 </html>

@@ -5,40 +5,41 @@
 import express from "express";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
-const __dirname = dirname(fileURLToPath(import.meta.url));
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 const port = 8081;
-app.use(express.urlencoded({ extended: true }));
-// it passes the url 
 
-var authentic = false;
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+app.use(express.static(__dirname + "/public")); // Serve static files like CSS and JS
 
-function checkPassword(req, res, next){
+let authentic = false;
+
+// Middleware to check password
+function checkPassword(req, res, next) {
     const password = req.body["password"];
-    if(password ==="ILoveProgramming"){
-        authentic =true;
+    if (password === "ILoveProgramming") { // Replace with your desired password
+        authentic = true;
     }
     next();
 }
-// 2 == "2"
 
-app.use(checkPassword);
-
+// Route to serve the main login page
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/public/index.html");
+    res.sendFile(__dirname + "/public/index.html"); // Updated path for your HTML
 });
 
-app.post("/check", (req, res) => {
+// Route to handle form submission
+app.post("/check", checkPassword, (req, res) => {
     if (authentic) {
-      res.sendFile(__dirname + "/public/secret.html");
+        res.sendFile(__dirname + "/public/secret.html");
     } else {
-    //   res.sendFile(__dirname + "/public/index.html");
-    //   Alternatively 
-      res.redirect("/");
+        
+        res.redirect("/"); // Redirect to login on failure
     }
-  });
+});
 
-app.listen(port, () => { console.log(`Listening on port ${port}`);});
-
-// res.send(`<h1>You are Not Authorized</h1>`);
+// Start server
+app.listen(port, () => {
+    console.log(`Listening on http://localhost:${port}`);
+});
